@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { HomeService } from './home.service';
 export interface PeriodicElement {
   name: string;
   amount: number;
@@ -21,4 +22,14 @@ export class AppComponent {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   displayedColumns: string[] = ['amount', 'name', 'email', 'mobile'];
   dataSource = ELEMENT_DATA;
+  public constructor(private service: HomeService){
+
+  }
+  onSubmit(){
+    this.service.getProduct(this.emailFormControl.value).subscribe((data:any)=>{
+
+    },err=>{
+      console.log(err);
+    })
+  }
 }
