@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { HomeService } from './home.service';
 export interface PeriodicElement {
   name: string;
@@ -9,8 +11,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {amount: 1, name: 'Hydrogen', email: "ajereez@gmail.com", mobile: 9659071436},
-  {amount: 1, name: 'Hydrogen', email: "ajereez@gmail.com", mobile: 9659071436}
+  { amount: 1, name: 'Hydrogen', email: "ajereez@gmail.com", mobile: 9659071436 },
+  { amount: 1, name: 'Hydrogen', email: "ajereez@gmail.com", mobile: 9659071436 }
 ];
 @Component({
   selector: 'app-root',
@@ -19,17 +21,28 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AppComponent {
   title = 'eauction';
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  emailFormControl = new FormControl('', [Validators.required]);
   displayedColumns: string[] = ['amount', 'name', 'email', 'mobile'];
-  dataSource = ELEMENT_DATA;
-  public constructor(private service: HomeService){
+  arrayList:any[]=[];
+  dataSource = new MatTableDataSource<any>(this.arrayList)
+  public constructor(private service: HomeService,private snackbar:MatSnackBar) {
 
   }
-  onSubmit(){
-    this.service.getProduct(this.emailFormControl.value).subscribe((data:any)=>{
-
-    },err=>{
-      console.log(err);
-    })
+  onSubmit() {
+    if(this.emailFormControl.valid){
+      this.service.getProduct(this.emailFormControl.value).subscribe((data: any) => {
+        if(data.length>0){
+          this.arrayList = ELEMENT_DATA;
+          this.dataSource = new MatTableDataSource<any>(this.arrayList)
+        }else{
+           this.snackbar.open("Product not found","X",{duration:3000});
+        }
+       }, err => {
+         this.snackbar.open(err.message,"X",{duration:3000});
+       })
+    }else{
+      this.emailFormControl.markAsTouched();
+    }
+  
   }
 }
