@@ -38,7 +38,81 @@
                     </mat-error>
                   </mat-form-field>
                 </form>
-                <button (click)="onSubmit()" mat-raised-button color="primary">Get</button>
+                <button (click)="productSearch()" mat-raised-button color="primary">Get</button>
+              </div>
+            </div>
+            <div *ngIf="productDetail" class="content">
+              <div class="container">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <mat-card-title>Product Details</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                   <div class="row">
+                     <div class="col-6">
+                      <button mat-stroked-button disabled>Product Name</button>
+                     </div>
+                     <div class="col-6">
+                      <span>
+                        {{productDetail.productName}}
+                      </span>
+                    </div>
+                   </div>
+                   <div class="row">
+                    <div class="col-6">
+                     <button mat-stroked-button disabled>Short Description</button>
+                    </div>
+                    <div class="col-6">
+                     <span>
+                      {{productDetail.shortDescription}}
+                     </span>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                     <button mat-stroked-button disabled>Detailed Description</button>
+                    </div>
+                    <div class="col-6">
+                     <span>
+                      {{productDetail.detailedDescription}}
+                     </span>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                     <button mat-stroked-button disabled>Category</button>
+                    </div>
+                    <div class="col-6">
+                     <span>
+                      {{productDetail.category}}
+                     </span>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                     <button mat-stroked-button disabled>Starting Price</button>
+                    </div>
+                    <div class="col-6">
+                     <span>
+                      {{productDetail.startingPrice}}
+                     </span>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                     <button mat-stroked-button disabled>Bid End Date</button>
+                    </div>
+                    <div class="col-6">
+                     <span>
+                      {{productDetail.bidEndDate}}
+                     </span>
+                   </div>
+                  </div>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-raised-button (click)="onSubmit()" >Show Bids</button>
+                  </mat-card-actions>
+                </mat-card>
               </div>
             </div>
             <div class="content">

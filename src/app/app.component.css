@@ -305,3 +305,13 @@
   table {
     width: 100%;
   }
+  .example-card {
+    width:auto;
+  }
+  
+ ::ng-deep .mat-stroked-button{
+    width: 12rem;
+ }
+ .example-card .row{
+   padding: 10px;
+ }

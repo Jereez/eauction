@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from './home.model';
+import { Product, ProductDetail } from './home.model';
 import { HomeService } from './home.service';
 const ELEMENT_DATA: Product[] = [];
 @Component({
@@ -15,24 +15,14 @@ export class AppComponent {
   emailFormControl = new FormControl('', [Validators.required]);
   displayedColumns: string[] = ['amount', 'name', 'email', 'mobile'];
   arrayList:Product[]=[];
+  productDetail:ProductDetail | any;
   dataSource = new MatTableDataSource<Product>(this.arrayList)
   public constructor(private service: HomeService,private snackbar:MatSnackBar) {
 
   }
   onSubmit() {
-    if(this.emailFormControl.valid){
-      let b = {
-        "firstName":"string",
-        "lastName":"string",
-        "address":"",
-        "city":"",
-        "state":"",
-        "phone":"dvfsv",
-        "email":"XVcdav",
-        "productID":"",
-        "bidAmount":"2000"
-      }
-      this.service.getProduct(this.emailFormControl.value).subscribe((data: Product[]|any) => {
+    if(this.productDetail.productID){
+      this.service.getProduct(this.productDetail.productID).subscribe((data: Product[]|any) => {
         if(data.length>0){
           this.arrayList = data;
           this.dataSource = new MatTableDataSource<any>(this.arrayList)
@@ -43,8 +33,23 @@ export class AppComponent {
          this.snackbar.open(err.message,"X",{duration:3000});
        })
     }else{
-      this.emailFormControl.markAsTouched();
+      this.snackbar.open("Product ID not found","X",{duration:3000});
     }
   
+  }
+  productSearch(){
+    if(this.emailFormControl.valid){
+      this.service.getProductDetail(this.emailFormControl.value).subscribe((data: ProductDetail[]|any) => {
+        if(data.length>0){
+          this.productDetail = data[0];
+        }else{
+           this.snackbar.open("Product not found","X",{duration:3000});
+        }
+       }, err => {
+         this.snackbar.open(err.message,"X",{duration:3000});
+       })
+    }else{
+      this.emailFormControl.markAsTouched();
+    }
   }
 }

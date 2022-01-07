@@ -10,4 +10,7 @@ export class HomeService {
   getProduct(productID: string) {
     return this.http.get(environment.url+"weatherforecast/");
   }
+  getProductDetail(productID: string) {
+    return this.http.get(environment.url+"weatherforecast/");
+  }
 }
