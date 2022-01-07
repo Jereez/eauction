@@ -315,3 +315,8 @@
  .example-card .row{
    padding: 10px;
  }
+
+ .example-card .row span{
+  font-size: larger;
+  margin: 1rem;
+ }
