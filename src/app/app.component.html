@@ -28,7 +28,7 @@
                     </mat-error>
                   </mat-form-field>
                 </form>
-                <button (click)="productSearch()" mat-raised-button color="primary">Get</button>
+                <button (click)="productSearch(emailFormControl)" mat-raised-button color="primary">Get</button>
               </div>
             </div>
             <div *ngIf="productDetail" class="content">
@@ -100,7 +100,7 @@
                   </div>
                   </mat-card-content>
                   <mat-card-actions>
-                    <button mat-raised-button (click)="onSubmit()" >Show Bids</button>
+                    <button mat-raised-button (click)="onSubmit(productDetail.productID)" >Show Bids</button>
                   </mat-card-actions>
                 </mat-card>
               </div>

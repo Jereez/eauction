@@ -20,9 +20,9 @@ export class AppComponent {
   public constructor(private service: HomeService,private snackbar:MatSnackBar) {
 
   }
-  onSubmit() {
-    if(this.productDetail.productID){
-      this.service.getProduct(this.productDetail.productID).subscribe((data: Product[]|any) => {
+  onSubmit(productID:string) {
+    if(productID){
+      this.service.getProduct(productID).subscribe((data: Product[]|any) => {
         if(data.length>0){
           this.arrayList = data;
           this.dataSource = new MatTableDataSource<any>(this.arrayList)
@@ -37,9 +37,9 @@ export class AppComponent {
     }
   
   }
-  productSearch(){
-    if(this.emailFormControl.valid){
-      this.service.getProductDetail(this.emailFormControl.value).subscribe((data: ProductDetail[]|any) => {
+  productSearch(emailFormControl:FormControl){
+    if(emailFormControl.valid){
+      this.service.getProductDetail(emailFormControl.value).subscribe((data: ProductDetail[]|any) => {
         if(data.length>0){
           this.productDetail = data[0];
         }else{
@@ -49,7 +49,7 @@ export class AppComponent {
          this.snackbar.open(err.message,"X",{duration:3000});
        })
     }else{
-      this.emailFormControl.markAsTouched();
+      emailFormControl.markAsTouched();
     }
   }
 }
