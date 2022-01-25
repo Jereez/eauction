@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:"https://localhost:44365/"
+  url:"https://e-auctionapigateway.azurewebsites.net"
 };
